@@ -1,0 +1,18 @@
+import pandas as pd
+
+# Inidialize the dataframe and print the first 5 orders
+orders = pd.read_csv('shoefly.csv')
+print(orders[:5])
+
+# Asked to give a list of emails "to send advertising"
+emails = orders.email
+print(emails)
+
+# What did Frances Palmer order?
+frances_palmer = orders[(orders.first_name == 'Frances') & (orders.last_name == 'Palmer')]
+print(frances_palmer)
+
+#isolate orders for "comfortable shoes"
+comfy_shoes = orders[(orders.shoe_type == 'clogs') | (orders.shoe_type == 'boots') | (orders.shoe_type == 'ballet flats')]
+comfy_shoes.reset_index(drop = True, inplace = True)
+print(comfy_shoes)
