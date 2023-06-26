@@ -1,0 +1,87 @@
+import piplite
+await piplite.install('seaborn')
+from matplotlib import pyplot as plt
+import pandas as pd
+import seaborn as sns
+import matplotlib.ticker as mtick
+
+df = pd.read_csv('kiva_data.csv')
+print(df.head())
+
+
+#####Visualize loan amounts per country
+f, ax = plt.subplots(figsize=(15, 10))
+sns.barplot(data = df, x = 'country', y = 'loan_amount')
+
+# Add dollar sign to y-ticks
+fmt = '${x:,.0f}'
+tick = mtick.StrMethodFormatter(fmt)
+ax.yaxis.set_major_formatter(tick)
+
+plt.show()
+
+
+#####Visualize the same data, but split by gender and given new style settings
+sns.set_palette('Accent')
+sns.set_style('dark')
+
+f2, ax2 = plt.subplots(figsize=(25, 15))
+ax2.set_title("Average Loan Amounts per Country")
+
+sns.barplot(data=df, x="country", y="loan_amount", hue = "gender")
+ax2.yaxis.set_major_formatter(tick)
+plt.legend(loc='upper left')
+
+plt.show()
+
+
+#####Visualize loan data per country split by gender in a box plot instead of a bar plot
+f3, ax3 = plt.subplots(figsize=(16, 10))
+
+ax3.set_title("Average Loan Amounts per Country")
+sns.set_style('dark')
+sns.set_palette('Set2')
+
+sns.boxplot(data = df, x = 'country', y = 'loan_amount', hue = 'gender')
+
+ax3.yaxis.set_major_formatter(tick)
+
+plt.show()
+
+
+#####Visualize loan amounts by the activity they are funding using a box plot (split by gender)
+f4, ax4 = plt.subplots(figsize=(16, 10))
+
+ax4.set_title("Average Loan Amounts by Activity")
+sns.set_style('dark')
+sns.set_palette('Set1')
+
+sns.boxplot(data = df, x = 'activity', y = 'loan_amount', hue = 'gender')
+
+plt.legend(loc = 'lower right')
+ax4.yaxis.set_major_formatter(tick)
+
+
+#####Visualize loan amounts by the activity they are funding using a violin plot (split by gender)
+f5, ax5 = plt.subplots(figsize=(16, 10))
+
+ax5.set_title("Loan Amounts by Activity")
+sns.set_style('dark')
+sns.set_palette('Dark2')
+
+sns.violinplot(data=df, x='activity', y='loan_amount', hue = 'gender')
+
+plt.legend(loc = 'lower right')
+ax5.yaxis.set_major_formatter(tick)
+
+
+#####Visualize loan amounts by country using a violin plot (split by gender)
+f6, ax6 = plt.subplots(figsize=(16, 10))
+
+ax6.set_title("Average Loan Amounts per Country")
+sns.set_style('dark')
+sns.set_palette('Spectral')
+
+sns.violinplot(data = df, x = 'country', y = 'loan_amount', hue = 'gender')
+
+ax6.yaxis.set_major_formatter(tick)
